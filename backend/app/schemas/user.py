@@ -25,5 +25,4 @@ class UserOut(BaseModel):
     email: EmailStr
     full_name: Optional[str] = None
 
-    class Config:
-        orm_mode = True
+    model_config = {"from_attributes": True}

@@ -16,7 +16,7 @@ def test_auth_signup_and_login(client):
     assert body["username"] == "testuser"
 
     # Login
-    login_payload = {"email": "test@example.com", "password": "testpass"}
+    login_payload = {"username": "testuser", "email": "test@example.com", "password": "testpass"}
     resp2 = client.post("/api/v1/auth/login", json=login_payload)
     assert resp2.status_code == 200
     assert "access_token" in resp2.json()
