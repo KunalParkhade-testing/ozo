@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+psycopg2-binary
+pydantic
+sqlalchemy
+alembic
+python-jose[cryptography]
+passlib[bcrypt]
+httpx
+pytest
+pytest-asyncio
+mypy
+black
+flake8
+isort
+email-validator
