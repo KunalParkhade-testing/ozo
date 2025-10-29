@@ -152,19 +152,17 @@ cd backend
 pytest app/tests/ -v
 ```
 
-### Frontend Tests
-
+Run tests with coverage:
 ```bash
-cd frontend
-npm run test  # To be implemented
-```
-
-### Code Coverage
-
-```bash
-cd backend
 pytest --cov=app app/tests/
 ```
+
+### Frontend Tests
+
+Frontend testing with Jest/Vitest is planned for future implementation. The application currently includes:
+- Type safety with TypeScript
+- Manual testing via browser
+- E2E testing capabilities through the CI pipeline
 
 ## 📚 API Documentation
 

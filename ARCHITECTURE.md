@@ -176,8 +176,8 @@ src/
 
 ### State Management
 - **Local State**: React hooks (useState, useEffect)
-- **Authentication**: localStorage + context (to be implemented)
-- **API Calls**: Axios with interceptors
+- **Authentication**: localStorage for token storage
+- **API Calls**: Axios with interceptors for token injection
 
 ## Security
 
@@ -190,8 +190,15 @@ src/
 
 ### Frontend Security
 - **XSS Prevention**: React's built-in escaping
-- **CSRF Protection**: To be implemented
-- **Secure Storage**: HttpOnly cookies (planned migration from localStorage)
+- **Token Storage**: Currently using localStorage (consider HttpOnly cookies for enhanced security)
+- **Input Sanitization**: Form validation before submission
+
+### Security Recommendations for Production
+- Implement CSRF protection for state-changing operations
+- Migrate from localStorage to HttpOnly cookies for token storage
+- Add rate limiting on authentication endpoints
+- Implement API key authentication for service-to-service calls
+- Set up regular security audits
 
 ## API Design
 
