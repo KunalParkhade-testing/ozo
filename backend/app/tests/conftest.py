@@ -29,7 +29,7 @@ def create_test_database():
     # Create the database schema for tests
     # Ensure all model modules are imported so they register on Base.metadata
     # (imports here prevent create_all running before models are declared)
-    import app.models.user  # noqa: F401
+    from app.models.user import User  # noqa: F401
 
     Base.metadata.create_all(bind=engine)
     yield
@@ -50,7 +50,7 @@ def db_session():
 
 
 @pytest.fixture()
-def client(db_session, monkeypatch):
+def client(db_session):
     """Return a TestClient that uses the provided db_session for dependency overrides."""
 
     def override_get_db():
@@ -60,7 +60,10 @@ def client(db_session, monkeypatch):
             pass
 
     # Override the get_db dependency used throughout the app
-    monkeypatch.setattr("app.db.session.get_db", override_get_db)
+    app.dependency_overrides[get_db] = override_get_db
 
     with TestClient(app) as c:
         yield c
+    
+    # Clean up
+    app.dependency_overrides.clear()

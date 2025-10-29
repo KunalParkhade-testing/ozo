@@ -15,7 +15,7 @@ def test_auth_signup_and_login(client):
     body = resp.json()
     assert body["username"] == "testuser"
 
-    # Login
+    # Login (now using LoginRequest schema - only email and password)
     login_payload = {"email": "test@example.com", "password": "testpass"}
     resp2 = client.post("/api/v1/auth/login", json=login_payload)
     assert resp2.status_code == 200

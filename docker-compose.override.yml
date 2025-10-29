@@ -1,5 +1,4 @@
 services:
-services:
   backend:
     # In dev, mount source and run with reload enabled
     volumes:
