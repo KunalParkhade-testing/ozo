@@ -17,8 +17,10 @@ jobs:
           POSTGRES_USER: user
           POSTGRES_PASSWORD: password
           POSTGRES_DB: ozo
+        ports:
+          - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U user -d ozo"
+          --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -46,27 +48,20 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Wait for Postgres
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y postgresql-client
-          for i in {1..30}; do
-            pg_isready -h localhost -p 5432 -U user -d ozo && break || sleep 2
-          done
-
-      - name: Run Alembic migrations
+      - name: Verify Postgres connection and run migrations
         working-directory: backend
         env:
           DATABASE_URL: postgresql://user:password@localhost:5432/ozo
           SECRET_KEY: test-secret-key-for-ci
           PYTHONPATH: ${{ github.workspace }}/backend
         run: |
+          echo "Testing PostgreSQL migrations..."
           alembic -c alembic.ini upgrade head
+          echo "Migrations successful!"
 
       - name: Run backend tests
         working-directory: backend
         env:
-          DATABASE_URL: postgresql://user:password@localhost:5432/ozo
           SECRET_KEY: test-secret-key-for-ci
           PYTHONPATH: ${{ github.workspace }}/backend
         run: |
