@@ -64,6 +64,6 @@ def client(db_session):
 
     with TestClient(app) as c:
         yield c
-    
+
     # Clean up
     app.dependency_overrides.clear()

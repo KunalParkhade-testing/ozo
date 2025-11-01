@@ -18,10 +18,14 @@ class Settings:
         self.DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./test.db")
         self.SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret")
         self.ALGORITHM = os.getenv("ALGORITHM", "HS256")
-        self.ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
+        self.ACCESS_TOKEN_EXPIRE_MINUTES = int(
+            os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30")
+        )
         origins = os.getenv("ALLOW_ORIGINS", "*")
         # Allow comma-separated origins in env
-        self.ALLOW_ORIGINS = [o.strip() for o in origins.split(",")] if origins else ["*"]
+        self.ALLOW_ORIGINS = (
+            [o.strip() for o in origins.split(",")] if origins else ["*"]
+        )
 
 
 settings = Settings()

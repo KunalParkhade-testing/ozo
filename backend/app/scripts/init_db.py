@@ -5,6 +5,7 @@ Run this after the database is available (for example after `docker-compose up -
 Usage (from backend directory):
   python -m app.scripts.init_db
 """
+
 from sqlalchemy.orm import Session
 from app.db.session import engine, SessionLocal
 from app.db.base import Base
@@ -30,7 +31,12 @@ def init_db() -> None:
         if existing:
             logger.info("Admin user already exists: %s", admin_email)
         else:
-            admin = UserCreate(username="admin", email=admin_email, password="adminpass", full_name="Admin User")
+            admin = UserCreate(
+                username="admin",
+                email=admin_email,
+                password="adminpass",
+                full_name="Admin User",
+            )
             create_user(db=db, user=admin)
             logger.info("Created admin user: %s", admin_email)
     finally:

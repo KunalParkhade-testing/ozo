@@ -6,7 +6,7 @@ from app.core.config import settings
 app = FastAPI(
     title="OZO - Our Zero-waste Option",
     description="A full-stack web application designed to promote and facilitate a zero-waste lifestyle",
-    version="1.0.0"
+    version="1.0.0",
 )
 
 app.add_middleware(
@@ -19,10 +19,12 @@ app.add_middleware(
 
 app.include_router(api_router, prefix="/api/v1")
 
+
 @app.get("/")
 def read_root():
     # Keep root message stable for tests and healthchecks
     return {"message": "Welcome to OZO - Our Zero-waste Option!"}
+
 
 @app.get("/health")
 def health_check():

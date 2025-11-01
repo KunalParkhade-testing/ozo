@@ -1,6 +1,3 @@
-import json
-
-
 def test_read_main(client):
     response = client.get("/")
     assert response.status_code == 200
@@ -9,7 +6,11 @@ def test_read_main(client):
 
 def test_auth_signup_and_login(client):
     # Signup
-    payload = {"username": "testuser", "email": "test@example.com", "password": "testpass"}
+    payload = {
+        "username": "testuser",
+        "email": "test@example.com",
+        "password": "testpass",
+    }
     resp = client.post("/api/v1/auth/signup", json=payload)
     assert resp.status_code == 201
     body = resp.json()
